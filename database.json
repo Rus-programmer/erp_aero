@@ -1,0 +1,12 @@
+{
+  "defaultEnv": "dev",
+  "dev": {
+    "host": "mysql",
+    "driver": "mysql",
+    "user": {"ENV": "DB_USER"},
+    "database": {"ENV": "MYSQL_DATABASE"},
+    "password": {"ENV": "MYSQL_ROOT_PASSWORD"}
+  },
+  "sql-file" : true,
+  "verbose": true
+}
