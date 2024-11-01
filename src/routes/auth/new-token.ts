@@ -3,16 +3,17 @@ import jwt from "jsonwebtoken";
 
 import {generateAccessToken} from "../../utils/tokenGenerator";
 import {UserPayload} from "../../types/user";
+import {NotAuthorizedError} from "../../errors/not-authorized-error";
 
 const router = Router();
 
 router.post('/signin/new_token', async (req: Request, res: Response) => {
-    const refreshToken = req.session?.refreshToken;
+    const refreshToken = req.session?.refreshToken ?? '';
     let payload;
     try {
         payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!) as UserPayload;
     } catch (e) {
-        throw new Error('Refresh token is not valid');
+        throw new NotAuthorizedError('Refresh token is not valid');
     }
 
     const accessToken = generateAccessToken(payload.id);
@@ -21,7 +22,7 @@ router.post('/signin/new_token', async (req: Request, res: Response) => {
         accessToken, refreshToken
     };
 
-    res.status(200);
+    res.sendStatus(200);
 });
 
 export {router as newTokenRouter};

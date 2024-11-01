@@ -9,6 +9,8 @@ import {errorHandler} from "./middlewares/error-handler";
 import {signupRouter} from "./routes/auth/signup";
 import {signinRouter} from "./routes/auth/signin";
 import {newTokenRouter} from "./routes/auth/new-token";
+import {currentUser} from "./middlewares/current-user";
+import {logoutRouter} from "./routes/auth/logout";
 
 dotenv.config();
 const app = express();
@@ -21,9 +23,12 @@ app.use(
     })
 );
 
+app.use(currentUser);
+
 app.use(signupRouter);
 app.use(signinRouter);
 app.use(newTokenRouter);
+app.use(logoutRouter);
 
 app.all('*', async () => {
     throw new NotFoundError();
