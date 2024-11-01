@@ -1,13 +1,14 @@
 import {Request, Response, Router} from 'express';
-import jwt from "jsonwebtoken";
+import {RowDataPacket} from "mysql2/typings/mysql/lib/protocol/packets/RowDataPacket";
 
 import {validateRequest} from "../../middlewares/validate-request";
 import {BadRequestError} from "../../errors/bad-request-error";
 import {pool} from "../../db/mysql/pool";
 import {phoneNumberOrEmail} from "../../validators/phone-email";
 import {password} from "../../validators/password";
-import {checkQueryResult} from "../../util/heplers/check-query-result";
-import {ResultSetHeader} from "mysql2/typings/mysql/lib/protocol/packets/ResultSetHeader";
+import {isQueryResultEmpty} from "../../util/heplers/check-query-result";
+import {hashPassword} from "../../util/password";
+import {generateAccessToken, generateRefreshToken} from "../../util/heplers/tokenGenerator";
 
 const router = Router();
 
@@ -22,16 +23,16 @@ router.post('/signup',
 
         let [results] = await pool.query('select login from users where login=?', [login]);
 
-        if (!checkQueryResult(results)) {
+        if (!isQueryResultEmpty(results)) {
             throw new BadRequestError('Login in use');
         }
 
-        const hashedPassword = await password.hash(password);
+        const hashedPassword = await hashPassword(password);
         [results] = await pool.query('insert into users (login, hashed_password) values (?, ?)', [login, hashedPassword]);
-        const userId = (results as ResultSetHeader).insertId;
+        const userId = (results as RowDataPacket).insertId;
 
-        const accessToken = jwt.sign({ id: userId }, process.env.JWT_SECRET!, { expiresIn: process.env.JWT_EXPIRES_IN! });;
-        const refreshToken = jwt.sign({ id: userId }, process.env.REFRESH_TOKEN_SECRET!);
+        const accessToken = generateAccessToken(userId);
+        const refreshToken = generateRefreshToken(userId);
 
         req.session = {
             accessToken, refreshToken
