@@ -11,6 +11,7 @@ import {signinRouter} from "./routes/auth/signin";
 import {newTokenRouter} from "./routes/auth/new-token";
 import {currentUser} from "./middlewares/current-user";
 import {logoutRouter} from "./routes/auth/logout";
+import {infoRouter} from "./routes/info/info";
 
 dotenv.config();
 const app = express();
@@ -29,6 +30,8 @@ app.use(signupRouter);
 app.use(signinRouter);
 app.use(newTokenRouter);
 app.use(logoutRouter);
+
+app.use(infoRouter);
 
 app.all('*', async () => {
     throw new NotFoundError();
