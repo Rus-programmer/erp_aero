@@ -5,11 +5,11 @@ import {phoneNumberOrEmail} from "../../validators/phone-email";
 import {password} from "../../validators/password";
 import {BadRequestError} from "../../errors/bad-request-error";
 import {pool} from "../../db/mysql/pool";
-import {isQueryResultEmpty} from "../../util/heplers/check-query-result";
-import {checkPassword} from '../../util/password'
+import {isQueryResultEmpty} from "../../utils/check-query-result";
+import {checkPassword} from '../../utils/password'
 import {User} from "../../types/user";
 import {RowDataPacket} from "mysql2/typings/mysql/lib/protocol/packets/RowDataPacket";
-import {generateAccessToken, generateRefreshToken} from "../../util/heplers/tokenGenerator";
+import {generateAccessToken, generateRefreshToken} from "../../utils/tokenGenerator";
 import {UserDTO} from "../../dtos/user";
 
 const router = Router();

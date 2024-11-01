@@ -1,7 +1,7 @@
 import {Request, Response, Router} from 'express';
 import jwt from "jsonwebtoken";
 
-import {generateAccessToken} from "../../util/heplers/tokenGenerator";
+import {generateAccessToken} from "../../utils/tokenGenerator";
 import {UserPayload} from "../../types/user";
 
 const router = Router();

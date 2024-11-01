@@ -6,9 +6,9 @@ import {BadRequestError} from "../../errors/bad-request-error";
 import {pool} from "../../db/mysql/pool";
 import {phoneNumberOrEmail} from "../../validators/phone-email";
 import {password} from "../../validators/password";
-import {isQueryResultEmpty} from "../../util/heplers/check-query-result";
-import {hashPassword} from "../../util/password";
-import {generateAccessToken, generateRefreshToken} from "../../util/heplers/tokenGenerator";
+import {isQueryResultEmpty} from "../../utils/check-query-result";
+import {hashPassword} from "../../utils/password";
+import {generateAccessToken, generateRefreshToken} from "../../utils/tokenGenerator";
 
 const router = Router();
 
