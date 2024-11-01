@@ -5,7 +5,6 @@ export class NotAuthorizedError extends CustomError {
 
   constructor(message?: string) {
     super(message ?? 'Not Authorized');
-    this.message = message ?? 'Not Authorized';
 
     Object.setPrototypeOf(this, NotAuthorizedError.prototype);
   }
