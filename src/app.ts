@@ -15,6 +15,9 @@ import {logoutRouter} from "./routes/auth/logout";
 import {infoRouter} from "./routes/info/info";
 import {fileUploadRouter} from "./routes/files/upload";
 import {fileListRouter} from "./routes/files/list";
+import {fileDeleteRouter} from "./routes/files/delete";
+import {getFileByIdRouter} from "./routes/files/getById";
+import {fileDownloadRouter} from "./routes/files/download";
 
 dotenv.config();
 const app = express();
@@ -37,10 +40,13 @@ app.use(logoutRouter);
 app.use(infoRouter);
 
 app.use(fileUploadRouter);
+app.use(getFileByIdRouter);
 app.use(fileListRouter);
+app.use(fileDeleteRouter);
+app.use(fileDownloadRouter);
 
 app.all('*', async () => {
-    throw new NotFoundError();
+    throw new NotFoundError('Route not found');
 });
 
 app.use(errorHandler);
