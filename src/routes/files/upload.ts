@@ -1,11 +1,11 @@
 import {Request, Response, Router} from 'express';
+import mime from "mime-types";
+import {RowDataPacket} from "mysql2/typings/mysql/lib/protocol/packets/RowDataPacket";
 
 import {requireAuth} from "../../middlewares/require-auth";
 import {upload} from "../../multer/config";
 import {pool} from "../../db/mysql/pool";
 import {BadRequestError} from "../../errors/bad-request-error";
-import mime from "mime-types";
-import {RowDataPacket} from "mysql2/typings/mysql/lib/protocol/packets/RowDataPacket";
 
 const router = Router();
 

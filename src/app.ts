@@ -18,6 +18,7 @@ import {fileListRouter} from "./routes/files/list";
 import {fileDeleteRouter} from "./routes/files/delete";
 import {getFileByIdRouter} from "./routes/files/getById";
 import {fileDownloadRouter} from "./routes/files/download";
+import {fileUpdateRouter} from "./routes/files/update";
 
 dotenv.config();
 const app = express();
@@ -44,6 +45,7 @@ app.use(getFileByIdRouter);
 app.use(fileListRouter);
 app.use(fileDeleteRouter);
 app.use(fileDownloadRouter);
+app.use(fileUpdateRouter);
 
 app.all('*', async () => {
     throw new NotFoundError('Route not found');
