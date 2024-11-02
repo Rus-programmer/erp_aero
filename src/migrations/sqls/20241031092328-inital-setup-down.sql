@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS erp_aero.users
+DROP TABLE IF EXISTS users;

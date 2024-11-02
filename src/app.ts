@@ -13,6 +13,7 @@ import {newTokenRouter} from "./routes/auth/new-token";
 import {currentUser} from "./middlewares/current-user";
 import {logoutRouter} from "./routes/auth/logout";
 import {infoRouter} from "./routes/info/info";
+import {fileUploadRouter} from "./routes/files/upload";
 
 dotenv.config();
 const app = express();
@@ -33,6 +34,8 @@ app.use(newTokenRouter);
 app.use(logoutRouter);
 
 app.use(infoRouter);
+
+app.use(fileUploadRouter);
 
 app.all('*', async () => {
     throw new NotFoundError();

@@ -20,7 +20,7 @@ router.post('/signin', [phoneNumberOrEmail('login'), password('password')], vali
 
         let [results] = await pool.query('select * from users where login=?', [login]);
         if (isQueryResultEmpty(results)) {
-            throw new BadRequestError('nvalid credentialsI');
+            throw new BadRequestError('Invalid credentialsI');
         }
 
         const existingUser = (results as RowDataPacket[])[0] as User;
