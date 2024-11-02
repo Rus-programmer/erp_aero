@@ -41,8 +41,8 @@ app.use(logoutRouter);
 app.use(infoRouter);
 
 app.use(fileUploadRouter);
-app.use(getFileByIdRouter);
 app.use(fileListRouter);
+app.use(getFileByIdRouter);
 app.use(fileDeleteRouter);
 app.use(fileDownloadRouter);
 app.use(fileUpdateRouter);

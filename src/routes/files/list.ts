@@ -10,9 +10,6 @@ router.get('/file/list', requireAuth, async (req: Request, res: Response) => {
     const page = Number(req.query.page) || 1;
 
     const offset = (page - 1) * listSize;
-    console.log('offset: ', offset)
-    console.log('listSize: ', listSize)
-
     let [results] = await pool.query('select * from files limit ? offset ?', [listSize, offset]);
 
     res.status(200).send(results)

@@ -11,7 +11,7 @@ const router = Router();
 
 router.get('/file/download/:id', requireAuth, async (req: Request, res: Response) => {
     const fileId = req.params.id;
-    console.log('fileId: ', fileId)
+
     const [results] = await pool.query('select * from files where id = ?', [fileId]);
     if (isQueryResultEmpty(results)) {
         throw new BadRequestError('File not found');
